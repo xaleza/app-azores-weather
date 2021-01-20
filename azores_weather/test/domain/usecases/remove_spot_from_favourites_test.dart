@@ -1,31 +1,31 @@
-import 'package:azores_weather/weather/domain/repositories/spot_repository.dart';
+import 'package:azores_weather/weather/domain/repositories/favourites_repository.dart';
 import 'package:azores_weather/weather/domain/usecases/remove_spot_from_favourites.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
-class MockSpotRepository extends Mock implements SpotRepository {}
+class MockFavouritesRepository extends Mock implements FavouritesRepository {}
 
 void main() {
   RemoveSpotFromFavourites usecase;
-  MockSpotRepository mockSpotRepository;
+  MockFavouritesRepository mockFavouritesRepository;
 
   setUp(() {
-    mockSpotRepository = MockSpotRepository();
-    usecase = RemoveSpotFromFavourites(mockSpotRepository);
+    mockFavouritesRepository = MockFavouritesRepository();
+    usecase = RemoveSpotFromFavourites(mockFavouritesRepository);
   });
 
   final tSpotName = 'Lagoa';
 
   test('should remove a spot from the list of favourites', () async {
     // arrange
-    when(mockSpotRepository.removeSpotFromFavourites(any))
+    when(mockFavouritesRepository.removeSpotFromFavourites(any))
         .thenAnswer((_) async => Right(null));
     // act
     final result = await usecase(Params(spotName: tSpotName));
     // assert
     expect(result, Right(null));
-    verify(mockSpotRepository.removeSpotFromFavourites(tSpotName));
-    verifyNoMoreInteractions(mockSpotRepository);
+    verify(mockFavouritesRepository.removeSpotFromFavourites(tSpotName));
+    verifyNoMoreInteractions(mockFavouritesRepository);
   });
 }
