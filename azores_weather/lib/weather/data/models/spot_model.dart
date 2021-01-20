@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:azores_weather/weather/domain/entities/spot.dart';
 import 'package:flutter/material.dart';
 
@@ -5,17 +7,29 @@ class SpotModel extends Spot {
   SpotModel(
       {@required String name,
       @required int currentTemperature,
-      @required String weather})
+      @required int minTemperature,
+      @required int maxTemperature,
+      @required String weather,
+      @required int humidity,
+      @required int pressure})
       : super(
             name: name,
             currentTemperature: currentTemperature,
-            weather: weather);
+            minTemperature: minTemperature,
+            maxTemperature: maxTemperature,
+            weather: weather,
+            humidity: humidity,
+            pressure: pressure);
 
   factory SpotModel.fromJson(Map<String, dynamic> json) {
     return SpotModel(
         name: json['name'],
         currentTemperature: json['main']['temp'],
-        weather: json['weather'][0]['main']);
+        minTemperature: json['main']['temp_min'],
+        maxTemperature: json['main']['temp_max'],
+        weather: json['weather'][0]['main'],
+        humidity: json['main']['humidity'],
+        pressure: json['main']['pressure']);
   }
 
   Map<String, dynamic> toJson() {
@@ -23,6 +37,10 @@ class SpotModel extends Spot {
       "name": name,
       "main": {
         "temp": currentTemperature,
+        "temp_min": minTemperature,
+        "temp_max": maxTemperature,
+        "pressure": pressure,
+        "humidity": humidity
       },
       "weather": [
         {"main": weather}

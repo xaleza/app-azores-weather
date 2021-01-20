@@ -7,8 +7,14 @@ import 'package:flutter_test/flutter_test.dart';
 import '../../fixtures/fixture_reader.dart';
 
 void main() {
-  final tSpotModel =
-      SpotModel(name: 'Ponta Delgada', currentTemperature: 15, weather: 'Mist');
+  final tSpotModel = SpotModel(
+      name: 'Ponta Delgada',
+      currentTemperature: 15,
+      weather: 'Mist',
+      humidity: 100,
+      minTemperature: 10,
+      maxTemperature: 20,
+      pressure: 1014);
 
   test(
     'should be a subclass of Spot entity',
@@ -44,6 +50,10 @@ void main() {
           "name": "Ponta Delgada",
           "main": {
             "temp": 15,
+            "temp_min": 10,
+            "temp_max": 20,
+            "pressure": 1014,
+            "humidity": 100
           },
           "weather": [
             {"main": "Mist"}
