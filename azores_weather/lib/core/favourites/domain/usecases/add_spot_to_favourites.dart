@@ -1,6 +1,6 @@
 import 'package:azores_weather/core/error/failures.dart';
+import 'package:azores_weather/core/favourites/domain/repositories/favourites_repository.dart';
 import 'package:azores_weather/core/usecases/usecase.dart';
-import 'package:azores_weather/weather/domain/repositories/favourites_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
