@@ -37,7 +37,7 @@ class SpotRepositoryImpl implements SpotRepository {
       }
     } else {
       try {
-        final localSpot = await localDataSource.getLastSpotWeather(spotId);
+        final localSpot = await localDataSource.getCachedSpotWeather(spotName);
         return Right(localSpot);
       } on CacheException {
         return Left(CacheFailure());

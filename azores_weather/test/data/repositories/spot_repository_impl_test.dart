@@ -123,13 +123,13 @@ void main() {
       'should return last locally cached data when the cached data is present',
       () async {
         // arrange
-        when(mockLocalDataSource.getLastSpotWeather(tSpotId))
+        when(mockLocalDataSource.getCachedSpotWeather(tSpotName))
             .thenAnswer((_) async => tSpotModel);
         // act
         final result = await repository.getCurrentWeatherForSpot(tSpotName);
         // assert
         verifyZeroInteractions(mockRemoteDataSource);
-        verify(mockLocalDataSource.getLastSpotWeather(tSpotId));
+        verify(mockLocalDataSource.getCachedSpotWeather(tSpotName));
         expect(result, equals(Right(tSpot)));
       },
     );
@@ -138,13 +138,13 @@ void main() {
       'should return CacheFailure when there is no cached data present',
       () async {
         // arrange
-        when(mockLocalDataSource.getLastSpotWeather(tSpotId))
+        when(mockLocalDataSource.getCachedSpotWeather(tSpotName))
             .thenThrow(CacheException());
         // act
         final result = await repository.getCurrentWeatherForSpot(tSpotName);
         // assert
         verifyZeroInteractions(mockRemoteDataSource);
-        verify(mockLocalDataSource.getLastSpotWeather(tSpotId));
+        verify(mockLocalDataSource.getCachedSpotWeather(tSpotName));
         expect(result, equals(Left(CacheFailure())));
       },
     );

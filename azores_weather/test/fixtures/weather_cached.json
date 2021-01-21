@@ -1,0 +1,15 @@
+{
+    "weather": [
+      {
+        "main": "Mist"
+      }
+    ],
+    "main": {
+      "temp": 15,
+      "temp_min": 10,
+      "temp_max": 20,
+      "pressure": 1014,
+      "humidity": 100
+    },
+    "name": "Ponta Delgada"
+  }
