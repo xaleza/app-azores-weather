@@ -5,7 +5,7 @@ abstract class SpotLocalDataSource {
   /// the user had an internet connection.
   ///
   /// Throws [NoLocalDataException] if no cached data is present.
-  Future<SpotModel> getLastSpotWeather();
+  Future<SpotModel> getLastSpotWeather(int spotId);
 
-  Future<void> cacheNumberTrivia(SpotModel spotToCache);
+  Future<void> cacheSpotWeather(SpotModel spotToCache);
 }

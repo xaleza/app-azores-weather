@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:azores_weather/features/weather/domain/entities/spot.dart';
 import 'package:flutter/material.dart';
 
