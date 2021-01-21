@@ -1,6 +1,6 @@
-import 'package:azores_weather/weather/domain/entities/spot.dart';
-import 'package:azores_weather/weather/domain/repositories/spot_repository.dart';
-import 'package:azores_weather/weather/domain/usecases/get_current_weather_for_spot.dart';
+import 'package:azores_weather/features/weather/domain/entities/spot.dart';
+import 'package:azores_weather/features/weather/domain/repositories/spot_repository.dart';
+import 'package:azores_weather/features/weather/domain/usecases/get_current_weather_for_spot.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';

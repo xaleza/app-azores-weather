@@ -1,4 +1,4 @@
-import 'package:azores_weather/weather/presentation/pages/weather_page.dart';
+import 'package:azores_weather/features/weather/presentation/pages/weather_page.dart';
 import 'package:flutter/material.dart';
 
 Future<void> main() async {

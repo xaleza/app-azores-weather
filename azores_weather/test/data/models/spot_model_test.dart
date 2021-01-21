@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:azores_weather/weather/data/models/spot_model.dart';
-import 'package:azores_weather/weather/domain/entities/spot.dart';
+import 'package:azores_weather/features/weather/data/models/spot_model.dart';
+import 'package:azores_weather/features/weather/domain/entities/spot.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../fixtures/fixture_reader.dart';
