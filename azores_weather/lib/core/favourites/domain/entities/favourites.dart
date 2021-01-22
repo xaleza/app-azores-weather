@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 // Favourite Spots
 class Favourites extends Equatable {
-  final List<String> list;
+  final List list;
 
   Favourites({@required this.list});
 

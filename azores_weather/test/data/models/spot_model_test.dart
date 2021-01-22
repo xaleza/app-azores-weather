@@ -26,7 +26,7 @@ void main() {
 
   group('fromJson', () {
     test(
-      'should return a valid model when the JSON number is an integer',
+      'should return a valid model when the JSON name is a string',
       () async {
         // arrange
         final Map<String, dynamic> jsonMap =

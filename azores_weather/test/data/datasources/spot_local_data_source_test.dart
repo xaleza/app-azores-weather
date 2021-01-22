@@ -29,7 +29,7 @@ void main() {
         SpotModel.fromJson(json.decode(fixture('weather_cached.json')));
 
     test(
-      'should return NumberTrivia from SharedPreferences when there is one in the cache',
+      'should return Spot from SharedPreferences when there is one in the cache',
       () async {
         // arrange
         when(mockSharedPreferences.getString(any))

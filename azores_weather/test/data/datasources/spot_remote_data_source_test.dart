@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:azores_weather/core/error/exception.dart';
-import 'package:azores_weather/core/network/network_info.dart';
 import 'package:azores_weather/features/weather/data/datasources/spot_remote_data_source.dart';
 import 'package:azores_weather/features/weather/data/models/spot_model.dart';
 import 'package:flutter_test/flutter_test.dart';
