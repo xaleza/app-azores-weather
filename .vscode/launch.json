@@ -8,7 +8,10 @@
             "name": "azores_weather",
             "cwd": "azores_weather",
             "request": "launch",
-            "type": "dart"
-        }
+            "type": "dart",
+            "presentation": {
+                "clear": true                        // <-- this line
+            }
+        } 
     ]
 }

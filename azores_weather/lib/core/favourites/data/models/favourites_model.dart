@@ -11,4 +11,16 @@ class FavouritesModel extends Favourites {
   Map<String, dynamic> toJson() {
     return {"favourites": list};
   }
+
+  void addFavourite(String spotName) {
+    list.add(spotName);
+  }
+
+  void removeFavourite(String spotName) {
+    list.remove(spotName);
+  }
+
+  String toString() {
+    return list.toString();
+  }
 }
