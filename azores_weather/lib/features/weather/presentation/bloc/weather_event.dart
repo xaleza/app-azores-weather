@@ -7,25 +7,27 @@ abstract class WeatherEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class GetWeatherForFavouritesEvent extends WeatherEvent {}
+class AppStarted extends WeatherEvent {}
 
-class GetWeatherForNearSpotsEvent extends WeatherEvent {}
+class PageTapped extends WeatherEvent {
+  final int index;
 
-class GetWeatherForAllSpotsEvent extends WeatherEvent {}
+  PageTapped({@required this.index});
+}
 
-class AddSpotToFavouriteEvent extends WeatherEvent {
+class AddFavourite extends WeatherEvent {
   final String spotName;
 
-  AddSpotToFavouriteEvent(this.spotName);
+  AddFavourite(this.spotName);
 
   @override
   List<Object> get props => [spotName];
 }
 
-class RemoveSpotFromFavouritesEvent extends WeatherEvent {
+class RemoveFavourite extends WeatherEvent {
   final String spotName;
 
-  RemoveSpotFromFavouritesEvent(this.spotName);
+  RemoveFavourite(this.spotName);
 
   @override
   List<Object> get props => [spotName];

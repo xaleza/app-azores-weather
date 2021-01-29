@@ -22,9 +22,9 @@ class SpotModel extends Spot {
   factory SpotModel.fromJson(Map<String, dynamic> json) {
     return SpotModel(
         name: json['name'],
-        currentTemperature: json['main']['temp'],
-        minTemperature: json['main']['temp_min'],
-        maxTemperature: json['main']['temp_max'],
+        currentTemperature: json['main']['temp'].toInt(),
+        minTemperature: json['main']['temp_min'].toInt(),
+        maxTemperature: json['main']['temp_max'].toInt(),
         weather: json['weather'][0]['main'],
         humidity: json['main']['humidity'],
         pressure: json['main']['pressure']);

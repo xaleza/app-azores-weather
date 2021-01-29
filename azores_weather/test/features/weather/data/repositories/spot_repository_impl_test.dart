@@ -66,7 +66,7 @@ void main() {
     setUp(() {
       when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
       when(mockCityIdsTranslator.translate(tSpotName))
-          .thenAnswer((_) => tSpotId);
+          .thenAnswer((_) async => tSpotId);
     });
 
     test(
@@ -116,7 +116,7 @@ void main() {
     setUp(() {
       when(mockNetworkInfo.isConnected).thenAnswer((_) async => false);
       when(mockCityIdsTranslator.translate(tSpotName))
-          .thenAnswer((_) => tSpotId);
+          .thenAnswer((_) async => tSpotId);
     });
 
     test(

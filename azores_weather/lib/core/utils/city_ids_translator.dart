@@ -5,13 +5,13 @@ import 'dart:convert';
 import 'package:azores_weather/core/constants/constant_reader.dart';
 
 abstract class CityIdsTranslator {
-  int translate(String spotName);
+  Future<int> translate(String spotName);
 }
 
 class CityIdsTranslatorImpl implements CityIdsTranslator {
   @override
-  int translate(String spotName) {
-    final Map<String, dynamic> jsonMap = json.decode(constant('city_ids.json'));
+  Future<int> translate(String spotName) async {
+    final Map<String, dynamic> jsonMap = await json.decode(await constant());
     return jsonMap[spotName];
   }
 }

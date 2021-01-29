@@ -11,9 +11,9 @@ void main() {
   final tSpotName = "Ponta Delgada";
   final tSpotId = 3372783;
 
-  test('should translate a name to a city id', () {
+  test('should translate a name to a city id', () async {
     // act
-    final result = translator.translate(tSpotName);
+    final result = await translator.translate(tSpotName);
     // assert
     expect(result, tSpotId);
   });

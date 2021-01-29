@@ -39,7 +39,7 @@ void main() {
     when(mockSpotRepository.getCurrentWeatherForSpot(any))
         .thenAnswer((_) async => Right(tSpot));
     // act
-    final result = await usecase(Params(spotName: tSpotName));
+    final result = await usecase(ParamsWeather(spotName: tSpotName));
     // assert
     expect(result, Right(tSpot));
     verify(mockSpotRepository.getCurrentWeatherForSpot(tSpotName));

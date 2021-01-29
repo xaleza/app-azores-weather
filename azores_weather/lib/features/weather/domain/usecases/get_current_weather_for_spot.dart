@@ -6,20 +6,20 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
-class GetCurrentWeatherForSpot extends UseCase<Spot, Params> {
+class GetCurrentWeatherForSpot extends UseCase<Spot, ParamsWeather> {
   final SpotRepository repository;
 
   GetCurrentWeatherForSpot(this.repository);
 
-  Future<Either<Failure, Spot>> call(Params params) async {
+  Future<Either<Failure, Spot>> call(ParamsWeather params) async {
     return await repository.getCurrentWeatherForSpot(params.spotName);
   }
 }
 
-class Params extends Equatable {
+class ParamsWeather extends Equatable {
   final String spotName;
 
-  Params({@required this.spotName});
+  ParamsWeather({@required this.spotName});
 
   @override
   List<Object> get props => [spotName];

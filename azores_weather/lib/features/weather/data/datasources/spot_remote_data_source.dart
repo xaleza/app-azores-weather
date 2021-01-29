@@ -22,7 +22,7 @@ class SpotRemoteDataSourceImpl implements SpotRemoteDataSource {
   @override
   Future<SpotModel> getFreshWeatherForSpot(int spotId) async {
     final response = await client.get(
-      'api.openweathermap.org/data/2.5/weather?id=$spotId&appid=$API_KEY&units=metric',
+      'http://api.openweathermap.org/data/2.5/weather?id=$spotId&appid=$API_KEY&units=metric',
       headers: {'Content-Type': 'application/json'},
     );
     if (response.statusCode == 200) {

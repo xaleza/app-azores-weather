@@ -7,24 +7,61 @@ abstract class WeatherState extends Equatable {
   List<Object> get props => [];
 }
 
-class Empty extends WeatherState {}
+class CurrentIndexChanged extends WeatherState {
+  final int currentIndex;
 
-class Loading extends WeatherState {}
+  CurrentIndexChanged({@required this.currentIndex});
+  @override
+  List<Object> get props => [currentIndex];
+  @override
+  String toString() => 'CurrentIndexChanged to $currentIndex';
+}
 
-class Loaded extends WeatherState {
+class PageLoading extends WeatherState {
+  @override
+  String toString() => 'PageLoading';
+}
+
+class FavouritesPageLoaded extends WeatherState {
   final List<Spot> spots;
 
-  Loaded({@required this.spots});
+  FavouritesPageLoaded({@required this.spots});
 
   @override
   List<Object> get props => [spots];
+  @override
+  String toString() => 'FavouritesPageLoaded';
 }
 
-class Error extends WeatherState {
+class NearMePageLoaded extends WeatherState {
+  final List<Spot> spots;
+
+  NearMePageLoaded({@required this.spots});
+
+  @override
+  List<Object> get props => [spots];
+  @override
+  String toString() => 'NearMePageLoaded';
+}
+
+class AllPageLoaded extends WeatherState {
+  final List<Spot> spots;
+
+  AllPageLoaded({@required this.spots});
+
+  @override
+  List<Object> get props => [spots];
+  @override
+  String toString() => 'AllPageLoaded';
+}
+
+class PageLoadingError extends WeatherState {
   final String message;
 
-  Error({@required this.message});
+  PageLoadingError({@required this.message});
 
   @override
   List<Object> get props => [message];
+  @override
+  String toString() => 'PageLoadingError';
 }

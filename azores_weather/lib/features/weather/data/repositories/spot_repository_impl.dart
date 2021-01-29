@@ -25,7 +25,7 @@ class SpotRepositoryImpl implements SpotRepository {
   @override
   Future<Either<Failure, Spot>> getCurrentWeatherForSpot(
       String spotName) async {
-    int spotId = translator.translate(spotName);
+    int spotId = await translator.translate(spotName);
     if (await networkInfo.isConnected) {
       try {
         final remoteSpot =
