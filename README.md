@@ -10,4 +10,4 @@
 - Search for locations (TODO)
 - Settings (TODO)
 
-![favourites_tab](previews/favs_page_preview.png)
+<img src="previews/favs_page_preview.png" width="400">
