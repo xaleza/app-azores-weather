@@ -22,7 +22,7 @@ void main() {
     when(mockFavouritesRepository.addSpotToFavourites(any))
         .thenAnswer((_) async => Right(null));
     // act
-    final result = await usecase(Params(spotName: tSpotName));
+    final result = await usecase(FavouritesParams(spotName: tSpotName));
     // assert
     expect(result, Right(null));
     verify(mockFavouritesRepository.addSpotToFavourites(tSpotName));

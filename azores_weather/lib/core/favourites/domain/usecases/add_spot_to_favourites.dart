@@ -5,20 +5,20 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
-class AddSpotToFavourites extends UseCase<void, Params> {
+class AddSpotToFavourites extends UseCase<void, FavouritesParams> {
   final FavouritesRepository repository;
 
   AddSpotToFavourites(this.repository);
 
-  Future<Either<Failure, void>> call(Params params) async {
+  Future<Either<Failure, void>> call(FavouritesParams params) async {
     return await repository.addSpotToFavourites(params.spotName);
   }
 }
 
-class Params extends Equatable {
+class FavouritesParams extends Equatable {
   final String spotName;
 
-  Params({@required this.spotName});
+  FavouritesParams({@required this.spotName});
 
   @override
   List<Object> get props => [spotName];

@@ -28,7 +28,9 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
   final RemoveSpotFromFavourites removeSpotFromFavourites;
   final GetFavourites getFavourites;
   int currentIndex = 0;
-  final favourites = ["Ponta Delgada", "Ribeira Grande", "Furnas"];
+  Favourites favourites;
+  var favouritesList;
+  final List<String> favouritesListTest = ["Furnas"];
   final nearMeSpotList = ["Ponta Delgada", "Ribeira Grande", "Furnas"];
   final allSpots = ["Ponta Delgada", "Ribeira Grande", "Furnas"];
 
@@ -52,18 +54,18 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
     WeatherEvent event,
   ) async* {
     if (event is AppStarted) {
-      //await buildFavourites();
-
+      await buildFavourites();
       this.add(PageTapped(index: this.currentIndex));
     }
     if (event is PageTapped) {
+      print(favouritesList.toString());
       this.currentIndex = event.index;
       yield CurrentIndexChanged(currentIndex: this.currentIndex);
       yield PageLoading();
       print("Pageloading");
 
       if (this.currentIndex == FAVOURITES_PAGE) {
-        final spotsEither = await getWeatherForSpots(favourites);
+        final spotsEither = await getWeatherForSpots(favouritesList);
         yield* spotsEither.fold((failure) async* {
           yield PageLoadingError(message: _mapFailureToMessage(failure));
         }, (spots) async* {
@@ -89,21 +91,22 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
       }
     }
     if (event is AddFavourite) {
-      addFavourite(event.spotName);
+      favouritesList.add(event.spotName);
+      this.addSpotToFavourite(FavouritesParams(spotName: event.spotName));
     }
     if (event is RemoveFavourite) {
-      removeFavourite(event.spotName);
+      favouritesList.remove(event.spotName);
+      this.removeSpotFromFavourites(Params(spotName: event.spotName));
     }
   }
 
-  /* Future buildFavourites() async {
+  Future buildFavourites() async {
     final getFavourites = await this.getFavourites(NoParams());
-    getFavourites.fold((failure) => favourites = Favourites(list: []),
-        (success) => favourites = success);
-  } */
+    getFavourites.fold((failure) => favouritesList = [],
+        (success) => favouritesList = success.list);
+  }
 
-  Future<Either<Failure, List<Spot>>> getWeatherForSpots(
-      List<String> spotList) async {
+  Future<Either<Failure, List<Spot>>> getWeatherForSpots(List spotList) async {
     var spots = List<Spot>();
     var fail;
     for (String favourite in spotList) {
@@ -117,7 +120,6 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
     return Right(spots);
   }
 
-  void addFavourite(String spotName) {}
   void removeFavourite(String spotName) {}
 
   String _mapFailureToMessage(Failure failure) {

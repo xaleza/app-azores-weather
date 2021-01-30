@@ -1,6 +1,9 @@
 import 'package:azores_weather/features/weather/domain/entities/spot.dart';
+import 'package:azores_weather/features/weather/presentation/bloc/weather_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 const CLEAR_WEATHER = "Clear";
 const RAIN_WEATHER = "Rain";
@@ -18,14 +21,33 @@ class WeatherPrevWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-        child: ListTile(
-            title: Text(
-              spot.name,
-              style: TextStyle(fontSize: 30),
-            ),
-            subtitle: Text(spot.currentTemperature.toString() + "º"),
-            trailing: weatherIcon(spot.weather)));
+    return Slidable(
+      actionPane: SlidableDrawerActionPane(),
+      child: Card(
+          child: ListTile(
+              title: Text(
+                spot.name,
+                style: TextStyle(fontSize: 30),
+              ),
+              subtitle: Text(spot.currentTemperature.toString() + "º"),
+              trailing: weatherIcon(spot.weather))),
+      actions: <Widget>[
+        IconSlideAction(
+          caption: 'Favourite',
+          color: Colors.amber,
+          icon: Icons.favorite_border,
+          onTap: () => addToFavourites(context),
+        )
+      ],
+      secondaryActions: <Widget>[
+        IconSlideAction(
+          caption: 'Delete',
+          color: Colors.red,
+          icon: Icons.delete,
+          onTap: () => removeFromFavourites(context),
+        ),
+      ],
+    );
   }
 
   Icon weatherIcon(String weather) {
@@ -51,5 +73,13 @@ class WeatherPrevWidget extends StatelessWidget {
       default:
         return Icon(Icons.error, color: Colors.red);
     }
+  }
+
+  void addToFavourites(BuildContext context) {
+    BlocProvider.of<WeatherBloc>(context).add(AddFavourite(this.spot.name));
+  }
+
+  removeFromFavourites(BuildContext context) {
+    BlocProvider.of<WeatherBloc>(context).add(RemoveFavourite(this.spot.name));
   }
 }

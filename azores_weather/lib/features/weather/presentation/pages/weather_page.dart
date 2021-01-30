@@ -10,7 +10,7 @@ class WeatherPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (_) => sl<WeatherBloc>(),
+        create: (_) => sl<WeatherBloc>()..add(AppStarted()),
         child: Scaffold(
             appBar: AppBar(
               leading: Icon(Icons.menu),
@@ -33,6 +33,13 @@ class WeatherPage extends StatelessWidget {
         return Center(child: CircularProgressIndicator());
       }
       if (state is FavouritesPageLoaded) {
+        return ListView.builder(
+            itemCount: state.spots.length,
+            itemBuilder: (BuildContext context, int index) {
+              return WeatherPrevWidget(spot: state.spots[index]);
+            });
+      }
+      if (state is AllPageLoaded) {
         return ListView.builder(
             itemCount: state.spots.length,
             itemBuilder: (BuildContext context, int index) {

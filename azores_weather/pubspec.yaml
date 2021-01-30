@@ -27,6 +27,7 @@ dependencies:
   # Local cache
   shared_preferences: ^0.5.3+4
   flutter_icons:
+  flutter_slidable:
 
 dev_dependencies:
   flutter_test:
