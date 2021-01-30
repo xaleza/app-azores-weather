@@ -20,6 +20,7 @@ class MockNetworkInfo extends Mock implements NetworkInfo {}
 class MockCityIdsTranslator extends Mock implements CityIdsTranslator {}
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
   SpotRepositoryImpl repository;
   MockRemoteDataSource mockRemoteDataSource;
   MockLocalDataSource mockLocalDataSource;
@@ -52,11 +53,11 @@ void main() {
       weather: "Sunny");
   final Spot tSpot = tSpotModel;
 
-  test('should check if the device is online', () {
+  test('should check if the device is online', () async {
     //arrange
     when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
     // act
-    repository.getCurrentWeatherForSpot(tSpotName);
+    await repository.getCurrentWeatherForSpot(tSpotName);
     // assert
     verify(mockNetworkInfo.isConnected);
   });

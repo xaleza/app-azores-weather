@@ -33,7 +33,7 @@ void main() {
       dataSource.getFreshWeatherForSpot(tSpotId);
       // assert
       verify(mockHttpClient.get(
-        'api.openweathermap.org/data/2.5/weather?id=$tSpotId&appid=$API_KEY&units=metric',
+        'http://api.openweathermap.org/data/2.5/weather?id=$tSpotId&appid=$API_KEY&units=metric',
         headers: {'Content-Type': 'application/json'},
       ));
     },

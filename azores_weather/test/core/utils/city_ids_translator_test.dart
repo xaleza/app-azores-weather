@@ -2,6 +2,7 @@ import 'package:azores_weather/core/utils/city_ids_translator.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
   CityIdsTranslator translator;
 
   setUp(() {
