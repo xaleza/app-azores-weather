@@ -24,13 +24,25 @@ class WeatherPrevWidget extends StatelessWidget {
     return Slidable(
       actionPane: SlidableDrawerActionPane(),
       child: Card(
-          child: ListTile(
-              title: Text(
-                spot.name,
-                style: TextStyle(fontSize: 30),
+          elevation: 2.5,
+          child: Row(children: <Widget>[
+            Expanded(
+              child: ListTile(
+                  contentPadding: EdgeInsets.all(7),
+                  title: Text(
+                    spot.name,
+                    style: TextStyle(fontSize: 30),
+                  ),
+                  trailing: weatherIcon(spot.weather)),
+            ),
+            Padding(
+              padding: EdgeInsets.all(7),
+              child: Text(
+                spot.currentTemperature.toString() + "º",
+                style: TextStyle(fontSize: 25),
               ),
-              subtitle: Text(spot.currentTemperature.toString() + "º"),
-              trailing: weatherIcon(spot.weather))),
+            )
+          ])),
       actions: <Widget>[
         IconSlideAction(
           caption: 'Favourite',
