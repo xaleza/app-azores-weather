@@ -32,3 +32,11 @@ class RemoveFavourite extends WeatherEvent {
   @override
   List<Object> get props => [spotName];
 }
+
+class IslandTapped extends WeatherEvent {
+  final String islandName;
+  IslandTapped(this.islandName);
+
+  @override
+  List<Object> get props => [islandName];
+}

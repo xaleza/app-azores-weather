@@ -1,5 +1,6 @@
 import 'package:azores_weather/features/weather/presentation/bloc/weather_bloc.dart';
 import 'package:azores_weather/features/weather/presentation/widgets/bottom_nav_bar.dart';
+import 'package:azores_weather/features/weather/presentation/widgets/islands_list_widget.dart';
 import 'package:azores_weather/features/weather/presentation/widgets/weather_prev_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,12 +43,15 @@ class WeatherPage extends StatelessWidget {
               return WeatherPrevWidget(spot: state.spots[index]);
             });
       }
-      if (state is AllPageLoaded) {
+      if (state is IslandPageLoaded) {
         return ListView.builder(
             itemCount: state.spots.length,
             itemBuilder: (BuildContext context, int index) {
               return WeatherPrevWidget(spot: state.spots[index]);
             });
+      }
+      if (state is AllPageSelected) {
+        return IslandsListWidget();
       }
       if (state is PageLoadingError) {
         return Center(

@@ -49,15 +49,17 @@ class NearMePageLoaded extends WeatherState {
   String toString() => 'NearMePageLoaded';
 }
 
-class AllPageLoaded extends WeatherState {
+class AllPageSelected extends WeatherState {}
+
+class IslandPageLoaded extends WeatherState {
   final List<Spot> spots;
 
-  AllPageLoaded({@required this.spots});
+  IslandPageLoaded({@required this.spots});
 
   @override
   List<Object> get props => [spots];
   @override
-  String toString() => 'AllPageLoaded';
+  String toString() => 'IslandPageLoaded';
 }
 
 class PageLoadingError extends WeatherState {

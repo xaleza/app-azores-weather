@@ -6,6 +6,7 @@ import 'package:azores_weather/core/favourites/domain/usecases/add_spot_to_favou
 import 'package:azores_weather/core/favourites/domain/usecases/get_favourites.dart';
 import 'package:azores_weather/core/favourites/domain/usecases/remove_spot_from_favourites.dart';
 import 'package:azores_weather/core/usecases/usecase.dart';
+import 'package:azores_weather/core/utils/spot_list_for_island.dart';
 import 'package:azores_weather/features/weather/domain/entities/spot.dart';
 import 'package:azores_weather/features/weather/domain/usecases/get_current_weather_for_spot.dart';
 import 'package:bloc/bloc.dart';
@@ -32,7 +33,7 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
   var favouritesList;
   final List<String> favouritesListTest = ["Furnas"];
   final nearMeSpotList = ["Ponta Delgada", "Ribeira Grande", "Furnas"];
-  final allSpots = ["Ponta Delgada", "Ribeira Grande", "Furnas"];
+  //final allSpots = ["Ponta Delgada", "Ribeira Grande", "Furnas"];
 
   WeatherBloc(
       {@required weather,
@@ -69,7 +70,7 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
         yield* _buildNearMePage();
       }
       if (this.currentIndex == ALL_PAGE) {
-        yield* _buildAllPage();
+        yield AllPageSelected();
       }
     }
     if (event is AddFavourite) {
@@ -80,16 +81,20 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
       favouritesList.remove(event.spotName);
       this.removeSpotFromFavourites(Params(spotName: event.spotName));
     }
+    if (event is IslandTapped) {
+      yield PageLoading();
+      yield* _buildIslandPage(event.islandName);
+    }
   }
 
-  Stream<WeatherState> _buildAllPage() async* {
+  /* Stream<WeatherState> _buildAllPage() async* {
     final spotsEither = await getWeatherForSpotList(this.allSpots);
     yield* spotsEither.fold((failure) async* {
       yield PageLoadingError(message: _mapFailureToMessage(failure));
     }, (spots) async* {
       yield AllPageLoaded(spots: spots);
     });
-  }
+  } */
 
   Stream<WeatherState> _buildNearMePage() async* {
     final spotsEither = await getWeatherForSpotList(this.nearMeSpotList);
@@ -127,9 +132,9 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
     for (String favourite in spotList) {
       var spot = await this
           .getCurrentWeatherForSpot(ParamsWeather(spotName: favourite));
-      spot.fold((failure) => fail = Left(failure), (spot) => spots.add(spot));
+      spot.fold((failure) => fail = failure, (spot) => spots.add(spot));
       if (spot.isLeft()) {
-        return Left(fail);
+        return fail;
       }
     }
     return Right(spots);
@@ -146,5 +151,16 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
       default:
         return 'Unexpected error';
     }
+  }
+
+  Stream<WeatherState> _buildIslandPage(String islandName) async* {
+    var spotList = await spotListForIsland(islandName);
+    final spotsEither = await getWeatherForSpotList(spotList);
+    yield* spotsEither.fold((failure) async* {
+      yield PageLoadingError(message: _mapFailureToMessage(failure));
+    }, (spots) async* {
+      yield IslandPageLoaded(spots: spots);
+      print("IslandPageLoaded");
+    });
   }
 }

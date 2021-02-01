@@ -77,6 +77,8 @@ class WeatherPrevWidget extends StatelessWidget {
         return Icon(Feather.cloud_drizzle, color: Colors.grey);
       case MIST_WEATHER:
         return Icon(MaterialCommunityIcons.weather_hazy, color: Colors.grey);
+      case FOG_WEATHER:
+        return Icon(MaterialCommunityIcons.weather_hazy, color: Colors.grey);
       case CLEAR_WEATHER:
         return Icon(
           Icons.wb_sunny,

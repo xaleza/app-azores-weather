@@ -11,7 +11,8 @@ abstract class CityIdsTranslator {
 class CityIdsTranslatorImpl implements CityIdsTranslator {
   @override
   Future<int> translate(String spotName) async {
-    final Map<String, dynamic> jsonMap = await json.decode(await constant());
+    final Map<String, dynamic> jsonMap =
+        await json.decode(await constant('assets/city_ids.json'));
     return jsonMap[spotName];
   }
 }
