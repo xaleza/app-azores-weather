@@ -32,6 +32,9 @@ class WeatherPage extends StatelessWidget {
       if (state is PageLoading) {
         return Center(child: CircularProgressIndicator());
       }
+      if (state is FavouritesPageEmpty) {
+        return Center(child: Text('Ainda não tem favoritos'));
+      }
       if (state is FavouritesPageLoaded) {
         return ListView.builder(
             itemCount: state.spots.length,
@@ -48,11 +51,11 @@ class WeatherPage extends StatelessWidget {
       }
       if (state is PageLoadingError) {
         return Center(
-          child: Text('failed to fetch posts'),
+          child: Text('Ocorreu um erro'),
         );
       } else {
         return Center(
-          child: Text('failed to fetch posts'),
+          child: Text('Ocorreu um erro'),
         );
       }
     });

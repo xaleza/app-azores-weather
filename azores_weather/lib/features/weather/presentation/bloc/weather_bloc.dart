@@ -54,40 +54,22 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
     WeatherEvent event,
   ) async* {
     if (event is AppStarted) {
-      await buildFavourites();
+      await buildFavouritesList();
       this.add(PageTapped(index: this.currentIndex));
     }
     if (event is PageTapped) {
-      print(favouritesList.toString());
       this.currentIndex = event.index;
       yield CurrentIndexChanged(currentIndex: this.currentIndex);
       yield PageLoading();
-      print("Pageloading");
 
       if (this.currentIndex == FAVOURITES_PAGE) {
-        final spotsEither = await getWeatherForSpots(favouritesList);
-        yield* spotsEither.fold((failure) async* {
-          yield PageLoadingError(message: _mapFailureToMessage(failure));
-        }, (spots) async* {
-          yield FavouritesPageLoaded(spots: spots);
-          print("FavouritesPageLoaded");
-        });
+        yield* _buildFavouritesPage();
       }
       if (this.currentIndex == NEAR_ME_PAGE) {
-        final spotsEither = await getWeatherForSpots(this.nearMeSpotList);
-        yield* spotsEither.fold((failure) async* {
-          yield PageLoadingError(message: _mapFailureToMessage(failure));
-        }, (spots) async* {
-          yield NearMePageLoaded(spots: spots);
-        });
+        yield* _buildNearMePage();
       }
       if (this.currentIndex == ALL_PAGE) {
-        final spotsEither = await getWeatherForSpots(this.allSpots);
-        yield* spotsEither.fold((failure) async* {
-          yield PageLoadingError(message: _mapFailureToMessage(failure));
-        }, (spots) async* {
-          yield AllPageLoaded(spots: spots);
-        });
+        yield* _buildAllPage();
       }
     }
     if (event is AddFavourite) {
@@ -100,13 +82,46 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
     }
   }
 
-  Future buildFavourites() async {
+  Stream<WeatherState> _buildAllPage() async* {
+    final spotsEither = await getWeatherForSpotList(this.allSpots);
+    yield* spotsEither.fold((failure) async* {
+      yield PageLoadingError(message: _mapFailureToMessage(failure));
+    }, (spots) async* {
+      yield AllPageLoaded(spots: spots);
+    });
+  }
+
+  Stream<WeatherState> _buildNearMePage() async* {
+    final spotsEither = await getWeatherForSpotList(this.nearMeSpotList);
+    yield* spotsEither.fold((failure) async* {
+      yield PageLoadingError(message: _mapFailureToMessage(failure));
+    }, (spots) async* {
+      yield NearMePageLoaded(spots: spots);
+    });
+  }
+
+  Stream<WeatherState> _buildFavouritesPage() async* {
+    if (favouritesList.isEmpty) {
+      yield FavouritesPageEmpty();
+    } else {
+      final spotsEither = await getWeatherForSpotList(favouritesList);
+      yield* spotsEither.fold((failure) async* {
+        yield PageLoadingError(message: _mapFailureToMessage(failure));
+      }, (spots) async* {
+        yield FavouritesPageLoaded(spots: spots);
+        print("FavouritesPageLoaded");
+      });
+    }
+  }
+
+  Future buildFavouritesList() async {
     final getFavourites = await this.getFavourites(NoParams());
     getFavourites.fold((failure) => favouritesList = [],
         (success) => favouritesList = success.list);
   }
 
-  Future<Either<Failure, List<Spot>>> getWeatherForSpots(List spotList) async {
+  Future<Either<Failure, List<Spot>>> getWeatherForSpotList(
+      List spotList) async {
     var spots = List<Spot>();
     var fail;
     for (String favourite in spotList) {
