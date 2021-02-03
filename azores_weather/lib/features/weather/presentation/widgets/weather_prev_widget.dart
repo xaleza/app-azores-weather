@@ -1,18 +1,10 @@
 import 'package:azores_weather/features/weather/domain/entities/spot.dart';
 import 'package:azores_weather/features/weather/presentation/bloc/weather_bloc.dart';
+import 'package:azores_weather/features/weather/presentation/pages/spot_page.dart';
+import 'package:azores_weather/features/weather/presentation/widgets/weather_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-
-const CLEAR_WEATHER = "Clear";
-const RAIN_WEATHER = "Rain";
-const CLOUDS_WEATHER = "Clouds";
-const DRIZZLE_WEATHER = "Drizzle";
-const THUNDERSTORM_WEATHER = "Thunderstorm";
-const SNOW_WEATHER = "Snow";
-const MIST_WEATHER = "Mist";
-const FOG_WEATHER = "Fog";
 
 class WeatherPrevWidget extends StatelessWidget {
   final Spot spot;
@@ -28,12 +20,20 @@ class WeatherPrevWidget extends StatelessWidget {
           child: Row(children: <Widget>[
             Expanded(
               child: ListTile(
-                  contentPadding: EdgeInsets.all(7),
-                  title: Text(
-                    spot.name,
-                    style: TextStyle(fontSize: 30),
-                  ),
-                  trailing: weatherIcon(spot.weather)),
+                contentPadding: EdgeInsets.all(7),
+                title: Text(
+                  spot.name,
+                  style: TextStyle(fontSize: 30),
+                ),
+                trailing: weatherIcon(spot.weather),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => SpotPage(spot: spot)),
+                  );
+                },
+              ),
             ),
             Padding(
               padding: EdgeInsets.all(7),
@@ -60,33 +60,6 @@ class WeatherPrevWidget extends StatelessWidget {
         ),
       ],
     );
-  }
-
-  Icon weatherIcon(String weather) {
-    switch (weather) {
-      case THUNDERSTORM_WEATHER:
-        return Icon(
-          Ionicons.md_thunderstorm,
-          color: Colors.grey,
-        );
-      case RAIN_WEATHER:
-        return Icon(Ionicons.md_rainy, color: Colors.grey);
-      case CLOUDS_WEATHER:
-        return Icon(Ionicons.md_cloud, color: Colors.grey);
-      case DRIZZLE_WEATHER:
-        return Icon(Feather.cloud_drizzle, color: Colors.grey);
-      case MIST_WEATHER:
-        return Icon(MaterialCommunityIcons.weather_hazy, color: Colors.grey);
-      case FOG_WEATHER:
-        return Icon(MaterialCommunityIcons.weather_hazy, color: Colors.grey);
-      case CLEAR_WEATHER:
-        return Icon(
-          Icons.wb_sunny,
-          color: Colors.amber,
-        );
-      default:
-        return Icon(Icons.error, color: Colors.red);
-    }
   }
 
   void addToFavourites(BuildContext context) {

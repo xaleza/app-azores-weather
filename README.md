@@ -4,10 +4,12 @@
 
 ## Features:
 - Check the weather for favourite locations
+- Check the weather for all the locations in the Azores
 - Check the weather for near locations (TODO)
-- Check the weather for all the locations in the Azores (TODO)
 - Add/Remove locations to your favourites (TODO)
 - Search for locations (TODO)
 - Settings (TODO)
 
 <img src="previews/favs_page_preview.png" width="400">
+<img src="previews/spot_page_preview.png" width="400">
+<img src="previews/all_page_preview.png" width="400">
