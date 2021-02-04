@@ -85,6 +85,19 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
       yield PageLoading();
       yield* _buildIslandPage(event.islandName);
     }
+    if (event is RefreshPage) {
+      print("RefreshPage");
+      yield PageLoading();
+      if (this.currentIndex == FAVOURITES_PAGE) {
+        yield* _buildFavouritesPage();
+      }
+      if (this.currentIndex == NEAR_ME_PAGE) {
+        yield* _buildNearMePage();
+      }
+      if (this.currentIndex == ALL_PAGE) {
+        yield AllPageSelected();
+      }
+    }
   }
 
   /* Stream<WeatherState> _buildAllPage() async* {
@@ -134,7 +147,7 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
           .getCurrentWeatherForSpot(ParamsWeather(spotName: favourite));
       spot.fold((failure) => fail = failure, (spot) => spots.add(spot));
       if (spot.isLeft()) {
-        return fail;
+        return Left(fail);
       }
     }
     return Right(spots);

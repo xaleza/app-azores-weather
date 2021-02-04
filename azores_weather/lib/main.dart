@@ -1,11 +1,15 @@
 import 'package:azores_weather/features/weather/presentation/pages/weather_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'features/weather/presentation/bloc/weather_bloc.dart';
 import 'injection_container.dart' as di;
+import 'injection_container.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await di.init();
-  runApp(MyApp());
+  runApp(BlocProvider(
+      create: (_) => sl<WeatherBloc>()..add(AppStarted()), child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {

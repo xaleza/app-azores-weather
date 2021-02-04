@@ -5,27 +5,23 @@ import 'package:azores_weather/features/weather/presentation/widgets/weather_pre
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../injection_container.dart';
-
 class WeatherPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-        create: (_) => sl<WeatherBloc>()..add(AppStarted()),
-        child: Scaffold(
-            appBar: AppBar(
-              leading: Icon(Icons.menu),
-              centerTitle: true,
-              title: Text('Tempo nos Açores'),
-              actions: [
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
-                  child: Icon(Icons.search),
-                ),
-              ],
+    return Scaffold(
+        appBar: AppBar(
+          leading: Icon(Icons.menu),
+          centerTitle: true,
+          title: Text('Tempo nos Açores'),
+          actions: [
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Icon(Icons.search),
             ),
-            body: buildBody(),
-            bottomNavigationBar: buildBottomNavBar()));
+          ],
+        ),
+        body: buildBody(),
+        bottomNavigationBar: buildBottomNavBar());
   }
 
   BlocBuilder<WeatherBloc, WeatherState> buildBody() {
@@ -37,17 +33,29 @@ class WeatherPage extends StatelessWidget {
         return Center(child: Text('Ainda não tem favoritos'));
       }
       if (state is FavouritesPageLoaded) {
-        return ListView.builder(
-            itemCount: state.spots.length,
-            itemBuilder: (BuildContext context, int index) {
-              return WeatherPrevWidget(spot: state.spots[index]);
-            });
+        return RefreshIndicator(
+          onRefresh: () async {
+            await Future.delayed(Duration(seconds: 1));
+            return BlocProvider.of<WeatherBloc>(context).add(RefreshPage());
+          },
+          child: ListView.builder(
+              itemCount: state.spots.length,
+              itemBuilder: (BuildContext context, int index) {
+                return WeatherPrevWidget(
+                  spot: state.spots[index],
+                  isFavourite: true,
+                );
+              }),
+        );
       }
       if (state is IslandPageLoaded) {
         return ListView.builder(
             itemCount: state.spots.length,
             itemBuilder: (BuildContext context, int index) {
-              return WeatherPrevWidget(spot: state.spots[index]);
+              return WeatherPrevWidget(
+                spot: state.spots[index],
+                isFavourite: false,
+              );
             });
       }
       if (state is AllPageSelected) {

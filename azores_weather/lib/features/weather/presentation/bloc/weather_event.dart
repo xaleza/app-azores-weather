@@ -9,6 +9,8 @@ abstract class WeatherEvent extends Equatable {
 
 class AppStarted extends WeatherEvent {}
 
+class RefreshPage extends WeatherEvent {}
+
 class PageTapped extends WeatherEvent {
   final int index;
 

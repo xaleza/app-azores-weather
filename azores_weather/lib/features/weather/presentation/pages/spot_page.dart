@@ -1,24 +1,47 @@
 import 'package:azores_weather/features/weather/domain/entities/spot.dart';
+import 'package:azores_weather/features/weather/presentation/bloc/weather_bloc.dart';
 import 'package:azores_weather/features/weather/presentation/widgets/weather_icon.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
-class SpotPage extends StatelessWidget {
+class SpotPage extends StatefulWidget {
   final Spot spot;
+  final startsFavourite;
 
-  const SpotPage({Key key, this.spot}) : super(key: key);
+  const SpotPage({Key key, this.spot, this.startsFavourite}) : super(key: key);
+
+  @override
+  _SpotPageState createState() => _SpotPageState();
+}
+
+class _SpotPageState extends State<SpotPage> {
+  bool _isFavorited;
+
+  @override
+  void initState() {
+    _isFavorited = widget.startsFavourite;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
           title: Text(
-            spot.name,
+            widget.spot.name,
           ),
           actions: [
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),
-              child: Icon(Icons.star_outline),
+              child: IconButton(
+                padding: EdgeInsets.all(0),
+                alignment: Alignment.centerRight,
+                icon:
+                    (_isFavorited ? Icon(Icons.star) : Icon(Icons.star_border)),
+                onPressed: () => _toggleFavorite(context),
+              ),
             ),
           ],
         ),
@@ -42,7 +65,7 @@ class SpotPage extends StatelessWidget {
                             size: 40,
                           ),
                           Text(
-                            spot.currentTemperature.toString() + "º",
+                            widget.spot.currentTemperature.toString() + "º",
                             style: TextStyle(fontSize: 40.0),
                           ),
                         ],
@@ -71,9 +94,10 @@ class SpotPage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Transform.scale(
-                              child: weatherIcon(spot.weather), scale: 1.7),
+                              child: weatherIcon(widget.spot.weather),
+                              scale: 1.7),
                           Text(
-                            spot.weather,
+                            widget.spot.weather,
                             style: TextStyle(fontSize: 30.0),
                           ),
                         ],
@@ -97,9 +121,9 @@ class SpotPage extends StatelessWidget {
                                 color: Colors.blue,
                               ),
                               Text(
-                                spot.minTemperature.toString() +
+                                widget.spot.minTemperature.toString() +
                                     "º/" +
-                                    spot.maxTemperature.toString() +
+                                    widget.spot.maxTemperature.toString() +
                                     "º",
                                 style: TextStyle(fontSize: 30.0),
                               ),
@@ -132,7 +156,7 @@ class SpotPage extends StatelessWidget {
                                 size: 50,
                               ),
                               Text(
-                                spot.humidity.toString() + "%",
+                                widget.spot.humidity.toString() + "%",
                                 style: TextStyle(fontSize: 30.0),
                               ),
                             ],
@@ -164,7 +188,7 @@ class SpotPage extends StatelessWidget {
                                 size: 40,
                               ),
                               Text(
-                                spot.pressure.toString() + "hPa",
+                                widget.spot.pressure.toString() + "hPa",
                                 style: TextStyle(fontSize: 22.0),
                               ),
                             ],
@@ -183,10 +207,58 @@ class SpotPage extends StatelessWidget {
   }
 
   Image getSpotImage() {
-    var spotName = spot.name;
+    var spotName = widget.spot.name;
     return Image.asset(
       "assets/$spotName.jpg",
       height: 260,
+    );
+  }
+
+  void _toggleFavorite(BuildContext context) {
+    setState(() {
+      if (_isFavorited) {
+        _showConfirmationDialog(context);
+      } else {
+        BlocProvider.of<WeatherBloc>(context)
+            .add(AddFavourite(widget.spot.name));
+        _isFavorited = true;
+      }
+    });
+  }
+
+  void _showConfirmationDialog(BuildContext context) {
+    var spotName = widget.spot.name;
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Remover dos favoritos"),
+          content: new Text(
+              "Tem a certeza que quer remover $spotName dos favouritos?"),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("NÃO"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            new FlatButton(
+              child: new Text("SIM"),
+              onPressed: () {
+                BlocProvider.of<WeatherBloc>(context)
+                    .add(RemoveFavourite(widget.spot.name));
+                setState(() {
+                  _isFavorited = false;
+                });
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
