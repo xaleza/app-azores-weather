@@ -11,10 +11,10 @@
 - Settings (TODO)
 
 <p float="left">
-  <img src="previews/alert_dialog_preview.png" width="400">
+  <img src="previews/spot_page_preview.png" width="400">
   <img src="previews/favs_page_preview.png" width="400">
 </p>
 <p float="left">
-  <img src="previews/spot_page_preview.png" width="400">
+  <img src="previews/alert_dialog_preview.png" width="400">
   <img src="previews/all_page_preview.png" width="400">
 </p>
