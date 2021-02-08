@@ -10,7 +10,7 @@
 - Search for locations (TODO)
 - Settings (TODO)
 
-<img src="previews/alert_dialog_preview.png" width="200">
-<img src="previews/favs_page_preview.png" width="200">
-<img src="previews/spot_page_preview.png" width="200">
-<img src="previews/all_page_preview.png" width="200">
+<img src="previews/alert_dialog_preview.png" width="300">
+<img src="previews/favs_page_preview.png" width="300">
+<img src="previews/spot_page_preview.png" width="300">
+<img src="previews/all_page_preview.png" width="300
