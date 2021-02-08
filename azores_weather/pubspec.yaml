@@ -42,3 +42,6 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
+    - assets/islands_prev/
+    - assets/spots_prev/
+      

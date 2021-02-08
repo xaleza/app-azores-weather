@@ -13,12 +13,11 @@ class IslandsListWidget extends StatelessWidget {
       Card(
           child: ListTile(
         leading: SizedBox(
-          height: 60.0,
-          width: 60.0, // fixed width and height
-          child: const DecoratedBox(
-            decoration: const BoxDecoration(color: Colors.green),
-          ),
-        ),
+            height: 60.0,
+            width: 60.0, // fixed width and height
+            child: Image.asset(
+              "assets/islands_prev/saomiguelprev.jpg",
+            )),
         contentPadding: EdgeInsets.all(7),
         title: Text(
           "São Miguel",
@@ -29,12 +28,11 @@ class IslandsListWidget extends StatelessWidget {
       Card(
           child: ListTile(
         leading: SizedBox(
-          height: 60.0,
-          width: 60.0, // fixed width and height
-          child: const DecoratedBox(
-            decoration: const BoxDecoration(color: Colors.amber),
-          ),
-        ),
+            height: 60.0,
+            width: 60.0, // fixed width and height
+            child: Image.asset(
+              "assets/islands_prev/santamariaprev.jpg",
+            )),
         contentPadding: EdgeInsets.all(7),
         title: Text(
           "Santa Maria",
@@ -45,12 +43,11 @@ class IslandsListWidget extends StatelessWidget {
       Card(
           child: ListTile(
         leading: SizedBox(
-          height: 60.0,
-          width: 60.0, // fixed width and height
-          child: const DecoratedBox(
-            decoration: const BoxDecoration(color: Colors.purple),
-          ),
-        ),
+            height: 60.0,
+            width: 60.0, // fixed width and height
+            child: Image.asset(
+              "assets/islands_prev/terceiraprev.jpg",
+            )),
         contentPadding: EdgeInsets.all(7),
         title: Text(
           "Terceira",
@@ -61,12 +58,11 @@ class IslandsListWidget extends StatelessWidget {
       Card(
           child: ListTile(
         leading: SizedBox(
-          height: 60.0,
-          width: 60.0, // fixed width and height
-          child: const DecoratedBox(
-            decoration: const BoxDecoration(color: Colors.brown),
-          ),
-        ),
+            height: 60.0,
+            width: 60.0, // fixed width and height
+            child: Image.asset(
+              "assets/islands_prev/saojorgeprev.jpg",
+            )),
         contentPadding: EdgeInsets.all(7),
         title: Text(
           "São Jorge",
@@ -77,12 +73,11 @@ class IslandsListWidget extends StatelessWidget {
       Card(
           child: ListTile(
         leading: SizedBox(
-          height: 60.0,
-          width: 60.0, // fixed width and height
-          child: const DecoratedBox(
-            decoration: const BoxDecoration(color: Colors.grey),
-          ),
-        ),
+            height: 60.0,
+            width: 60.0, // fixed width and height
+            child: Image.asset(
+              "assets/islands_prev/picoprev.jpg",
+            )),
         contentPadding: EdgeInsets.all(7),
         title: Text(
           "Pico",
@@ -93,12 +88,11 @@ class IslandsListWidget extends StatelessWidget {
       Card(
           child: ListTile(
         leading: SizedBox(
-          height: 60.0,
-          width: 60.0, // fixed width and height
-          child: const DecoratedBox(
-            decoration: const BoxDecoration(color: Colors.blue),
-          ),
-        ),
+            height: 60.0,
+            width: 60.0, // fixed width and height
+            child: Image.asset(
+              "assets/islands_prev/faialprev.jpg",
+            )),
         contentPadding: EdgeInsets.all(7),
         title: Text(
           "Faial",
@@ -109,12 +103,11 @@ class IslandsListWidget extends StatelessWidget {
       Card(
           child: ListTile(
         leading: SizedBox(
-          height: 60.0,
-          width: 60.0, // fixed width and height
-          child: const DecoratedBox(
-            decoration: const BoxDecoration(color: Colors.white),
-          ),
-        ),
+            height: 60.0,
+            width: 60.0, // fixed width and height
+            child: Image.asset(
+              "assets/islands_prev/graciosaprev.jpg",
+            )),
         contentPadding: EdgeInsets.all(7),
         title: Text(
           "Graciosa",
@@ -125,12 +118,11 @@ class IslandsListWidget extends StatelessWidget {
       Card(
           child: ListTile(
         leading: SizedBox(
-          height: 60.0,
-          width: 60.0, // fixed width and height
-          child: const DecoratedBox(
-            decoration: const BoxDecoration(color: Colors.pink),
-          ),
-        ),
+            height: 60.0,
+            width: 60.0, // fixed width and height
+            child: Image.asset(
+              "assets/islands_prev/floresprev.jpg",
+            )),
         contentPadding: EdgeInsets.all(7),
         title: Text(
           "Flores",
@@ -141,12 +133,11 @@ class IslandsListWidget extends StatelessWidget {
       Card(
           child: ListTile(
         leading: SizedBox(
-          height: 60.0,
-          width: 60.0, // fixed width and height
-          child: const DecoratedBox(
-            decoration: const BoxDecoration(color: Colors.black),
-          ),
-        ),
+            height: 60.0,
+            width: 60.0, // fixed width and height
+            child: Image.asset(
+              "assets/islands_prev/corvoprev.jpg",
+            )),
         contentPadding: EdgeInsets.all(7),
         title: Text(
           "Corvo",

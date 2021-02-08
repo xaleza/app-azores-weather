@@ -209,7 +209,7 @@ class _SpotPageState extends State<SpotPage> {
   Image getSpotImage() {
     var spotName = widget.spot.name;
     return Image.asset(
-      "assets/$spotName.jpg",
+      "assets/spots_prev/$spotName.jpg",
       height: 260,
     );
   }

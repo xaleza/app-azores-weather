@@ -74,12 +74,10 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
       }
     }
     if (event is AddFavourite) {
-      favouritesList.add(event.spotName);
-      this.addSpotToFavourite(FavouritesParams(spotName: event.spotName));
+      _addFavourite(event);
     }
     if (event is RemoveFavourite) {
-      favouritesList.remove(event.spotName);
-      this.removeSpotFromFavourites(Params(spotName: event.spotName));
+      yield* _removeFavourite(event);
     }
     if (event is IslandTapped) {
       yield PageLoading();
@@ -100,14 +98,15 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
     }
   }
 
-  /* Stream<WeatherState> _buildAllPage() async* {
-    final spotsEither = await getWeatherForSpotList(this.allSpots);
-    yield* spotsEither.fold((failure) async* {
-      yield PageLoadingError(message: _mapFailureToMessage(failure));
-    }, (spots) async* {
-      yield AllPageLoaded(spots: spots);
-    });
-  } */
+  void _addFavourite(AddFavourite event) {
+    favouritesList.add(event.spotName);
+    this.addSpotToFavourite(FavouritesParams(spotName: event.spotName));
+  }
+
+  Stream<WeatherState> _removeFavourite(RemoveFavourite event) async* {
+    favouritesList.remove(event.spotName);
+    this.removeSpotFromFavourites(Params(spotName: event.spotName));
+  }
 
   Stream<WeatherState> _buildNearMePage() async* {
     final spotsEither = await getWeatherForSpotList(this.nearMeSpotList);
