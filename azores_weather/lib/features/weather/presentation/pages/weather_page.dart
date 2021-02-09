@@ -1,8 +1,10 @@
 import 'package:azores_weather/features/weather/presentation/bloc/weather_bloc.dart';
+import 'package:azores_weather/features/weather/presentation/pages/island_page.dart';
 import 'package:azores_weather/features/weather/presentation/widgets/bottom_nav_bar.dart';
 import 'package:azores_weather/features/weather/presentation/widgets/islands_list_widget.dart';
 import 'package:azores_weather/features/weather/presentation/widgets/weather_prev_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class WeatherPage extends StatelessWidget {
@@ -49,15 +51,16 @@ class WeatherPage extends StatelessWidget {
         );
       }
       if (state is IslandPageLoaded) {
-        return ListView.builder(
-            itemCount: state.spots.length,
-            itemBuilder: (BuildContext context, int index) {
-              return WeatherPrevWidget(
-                spot: state.spots[index],
-                isFavourite: BlocProvider.of<WeatherBloc>(context)
-                    .isFavourite(state.spots[index].name),
-              );
-            });
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => IslandPage(
+                        islandName: state.islandName,
+                        spots: state.spots,
+                      )));
+        });
+        return IslandsListWidget();
       }
       if (state is AllPageSelected) {
         return IslandsListWidget();
@@ -68,7 +71,7 @@ class WeatherPage extends StatelessWidget {
         );
       } else {
         return Center(
-          child: Text('Ocorreu um erro'),
+          child: Text('Ocorreu um erro baril'),
         );
       }
     });

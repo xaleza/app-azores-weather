@@ -170,7 +170,7 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
     yield* spotsEither.fold((failure) async* {
       yield PageLoadingError(message: _mapFailureToMessage(failure));
     }, (spots) async* {
-      yield IslandPageLoaded(spots: spots);
+      yield IslandPageLoaded(islandName: islandName, spots: spots);
       print("IslandPageLoaded");
     });
   }

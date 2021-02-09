@@ -53,8 +53,9 @@ class AllPageSelected extends WeatherState {}
 
 class IslandPageLoaded extends WeatherState {
   final List<Spot> spots;
+  final islandName;
 
-  IslandPageLoaded({@required this.spots});
+  IslandPageLoaded({@required this.islandName, @required this.spots});
 
   @override
   List<Object> get props => [spots];
