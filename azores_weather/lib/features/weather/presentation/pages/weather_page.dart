@@ -54,7 +54,8 @@ class WeatherPage extends StatelessWidget {
             itemBuilder: (BuildContext context, int index) {
               return WeatherPrevWidget(
                 spot: state.spots[index],
-                isFavourite: false,
+                isFavourite: BlocProvider.of<WeatherBloc>(context)
+                    .isFavourite(state.spots[index].name),
               );
             });
       }

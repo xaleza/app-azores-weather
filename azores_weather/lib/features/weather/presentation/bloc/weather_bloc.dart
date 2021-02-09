@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:azores_weather/core/error/failures.dart';
-import 'package:azores_weather/core/favourites/domain/entities/favourites.dart';
 import 'package:azores_weather/core/favourites/domain/usecases/add_spot_to_favourites.dart';
 import 'package:azores_weather/core/favourites/domain/usecases/get_favourites.dart';
 import 'package:azores_weather/core/favourites/domain/usecases/remove_spot_from_favourites.dart';
@@ -29,7 +28,7 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
   final RemoveSpotFromFavourites removeSpotFromFavourites;
   final GetFavourites getFavourites;
   int currentIndex = 0;
-  Favourites favourites;
+
   var favouritesList;
   final List<String> favouritesListTest = ["Furnas"];
   final nearMeSpotList = ["Ponta Delgada", "Ribeira Grande", "Furnas"];
@@ -174,5 +173,9 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
       yield IslandPageLoaded(spots: spots);
       print("IslandPageLoaded");
     });
+  }
+
+  bool isFavourite(String spotName) {
+    return favouritesList.contains(spotName);
   }
 }
