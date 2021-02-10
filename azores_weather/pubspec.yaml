@@ -28,6 +28,8 @@ dependencies:
   shared_preferences: ^0.5.3+4
   flutter_icons:
   flutter_slidable:
+  geolocator: ^6.2.0
+  latlong: ^0.6.1
 
 dev_dependencies:
   flutter_test:

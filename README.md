@@ -6,7 +6,7 @@
 - Check the weather for favourite locations
 - Check the weather for all the locations in the Azores
 - Add/Remove locations to your favourites
-- Check the weather for near locations (TODO)
+- Check the weather for near locations
 - Search for locations (TODO)
 - Settings (TODO)
 

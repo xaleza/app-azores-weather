@@ -4,6 +4,7 @@ import 'package:azores_weather/core/error/failures.dart';
 import 'package:azores_weather/core/favourites/domain/usecases/add_spot_to_favourites.dart';
 import 'package:azores_weather/core/favourites/domain/usecases/get_favourites.dart';
 import 'package:azores_weather/core/favourites/domain/usecases/remove_spot_from_favourites.dart';
+import 'package:azores_weather/core/location/location_info.dart';
 import 'package:azores_weather/core/usecases/usecase.dart';
 import 'package:azores_weather/core/utils/spot_list_for_island.dart';
 import 'package:azores_weather/features/weather/domain/entities/spot.dart';
@@ -30,8 +31,9 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
   int currentIndex = 0;
 
   var favouritesList;
+  var nearMeSpotList = List<String>();
   final List<String> favouritesListTest = ["Furnas"];
-  final nearMeSpotList = ["Ponta Delgada", "Ribeira Grande", "Furnas"];
+  //final nearMeSpotList = ["Ponta Delgada", "Ribeira Grande", "Furnas"];
   //final allSpots = ["Ponta Delgada", "Ribeira Grande", "Furnas"];
 
   WeatherBloc(
@@ -55,6 +57,7 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
   ) async* {
     if (event is AppStarted) {
       await buildFavouritesList();
+      await buildNearestSpotsList();
       this.add(PageTapped(index: this.currentIndex));
     }
     if (event is PageTapped) {
@@ -108,12 +111,16 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
   }
 
   Stream<WeatherState> _buildNearMePage() async* {
-    final spotsEither = await getWeatherForSpotList(this.nearMeSpotList);
-    yield* spotsEither.fold((failure) async* {
-      yield PageLoadingError(message: _mapFailureToMessage(failure));
-    }, (spots) async* {
-      yield NearMePageLoaded(spots: spots);
-    });
+    if (nearMeSpotList.isEmpty) {
+      yield NearMePageEmpty();
+    } else {
+      final spotsEither = await getWeatherForSpotList(this.nearMeSpotList);
+      yield* spotsEither.fold((failure) async* {
+        yield PageLoadingError(message: _mapFailureToMessage(failure));
+      }, (spots) async* {
+        yield NearMePageLoaded(spots: spots);
+      });
+    }
   }
 
   Stream<WeatherState> _buildFavouritesPage() async* {
@@ -134,6 +141,10 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
     final getFavourites = await this.getFavourites(NoParams());
     getFavourites.fold((failure) => favouritesList = [],
         (success) => favouritesList = success.list);
+  }
+
+  Future buildNearestSpotsList() async {
+    this.nearMeSpotList = await getNearestSpots();
   }
 
   Future<Either<Failure, List<Spot>>> getWeatherForSpotList(

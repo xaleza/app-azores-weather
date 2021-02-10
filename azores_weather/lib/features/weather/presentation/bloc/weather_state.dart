@@ -38,6 +38,11 @@ class FavouritesPageEmpty extends WeatherState {
   String toString() => 'FavouritesPageEmpty';
 }
 
+class NearMePageEmpty extends WeatherState {
+  @override
+  String toString() => 'NearMePageEmpty';
+}
+
 class NearMePageLoaded extends WeatherState {
   final List<Spot> spots;
 

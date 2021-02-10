@@ -1,14 +1,14 @@
 {
-    "Ponta Delgada" : 3372783,
-    "Vila Franca do Campo" : 3372472,
-    "Furnas" : 3373025,
-    "Vila do Porto Municipality": 8010684,
-    "Angra do Heroísmo": 3373348,
-    "Praia da Vitória" : 3372760,
-    "Velas": 3372485,
-    "São Roque do Pico": 3372589,
-    "Horta": 3372988,
-    "Santa Cruz da Graciosa Municipality": 8010693,
-    "Santa Cruz das Flores": 3372643,
-    "Vila do Corvo": 3373168
+    "Ponta Delgada" : {"id": 3372783, "lat" : 37.7333, "long": -25.6667},
+    "Vila Franca do Campo" : {"id": 3372472,"lat" : 37.7167, "long": -25.4333},
+    "Furnas" : {"id": 3373025,"lat" :37.7757, "long": -25.3104},
+    "Vila do Porto Municipality": {"id": 8010684,"lat" :  36.9745, "long": -25.0997},
+    "Angra do Heroísmo": {"id": 3373348,"lat" : 38.65, "long":  -27.2167},
+    "Praia da Vitória" : {"id": 3372760,"lat" :  38.7333, "long":  -27.0667},
+    "Velas": {"id": 3372485,"lat" : 38.6833, "long": -28.2167},
+    "São Roque do Pico": {"id": 3372589,"lat" :  38.5167, "long":  -28.3167},
+    "Horta": {"id": 3372988,"lat" :  38.5333, "long": -28.6333},
+    "Santa Cruz da Graciosa Municipality": {"id": 8010693,"lat" : 39.0495, "long": -28.0043},
+    "Santa Cruz das Flores": {"id": 3372643,"lat" :  39.45, "long": -31.1167},
+    "Vila do Corvo": {"id": 3373168, "lat" : 39.6667, "long": -31.1333}
 }

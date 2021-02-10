@@ -32,7 +32,16 @@ class WeatherPage extends StatelessWidget {
         return Center(child: CircularProgressIndicator());
       }
       if (state is FavouritesPageEmpty) {
-        return Center(child: Text('Ainda não tem favoritos'));
+        return Center(
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Text(
+              'Ainda não tem favoritos. Selecione um local e carregue na ⭐ para adcionar aos favoritos!',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontStyle: FontStyle.italic, fontSize: 20),
+            ),
+          ),
+        );
       }
       if (state is FavouritesPageLoaded) {
         return RefreshIndicator(
@@ -46,6 +55,35 @@ class WeatherPage extends StatelessWidget {
                 return WeatherPrevWidget(
                   spot: state.spots[index],
                   isFavourite: true,
+                );
+              }),
+        );
+      }
+      if (state is NearMePageEmpty) {
+        return Center(
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Text(
+              'Parece que está longe dos Açores 😢',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontStyle: FontStyle.italic, fontSize: 20),
+            ),
+          ),
+        );
+      }
+      if (state is NearMePageLoaded) {
+        return RefreshIndicator(
+          onRefresh: () async {
+            await Future.delayed(Duration(seconds: 1));
+            return BlocProvider.of<WeatherBloc>(context).add(RefreshPage());
+          },
+          child: ListView.builder(
+              itemCount: state.spots.length,
+              itemBuilder: (BuildContext context, int index) {
+                return WeatherPrevWidget(
+                  spot: state.spots[index],
+                  isFavourite: BlocProvider.of<WeatherBloc>(context)
+                      .isFavourite(state.spots[index].name),
                 );
               }),
         );
@@ -71,7 +109,7 @@ class WeatherPage extends StatelessWidget {
         );
       } else {
         return Center(
-          child: Text('Ocorreu um erro baril'),
+          child: Text('Ocorreu um erro'),
         );
       }
     });
