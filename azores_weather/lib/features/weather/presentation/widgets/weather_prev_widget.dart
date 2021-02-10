@@ -24,7 +24,6 @@ class WeatherPrevWidget extends StatelessWidget {
                 spot.name,
                 style: TextStyle(fontSize: 30),
               ),
-              trailing: weatherIcon(spot.weather),
               onTap: () async {
                 await Navigator.push(
                   context,
@@ -37,6 +36,10 @@ class WeatherPrevWidget extends StatelessWidget {
                 BlocProvider.of<WeatherBloc>(context).add(RefreshPage());
               },
             ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(1),
+            child: weatherIcon(spot.weather),
           ),
           Padding(
             padding: EdgeInsets.all(7),
