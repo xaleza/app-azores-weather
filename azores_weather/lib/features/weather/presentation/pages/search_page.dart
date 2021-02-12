@@ -1,13 +1,11 @@
 import 'package:azores_weather/features/weather/presentation/bloc/weather_bloc.dart';
-import 'package:azores_weather/features/weather/presentation/widgets/weather_prev_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class IslandPage extends StatelessWidget {
-  final islandName;
-  final spots;
+class SearchPage extends StatelessWidget {
+  final initialSpots;
 
-  const IslandPage({Key key, this.islandName, this.spots}) : super(key: key);
+  const SearchPage({Key key, this.initialSpots}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,22 +13,22 @@ class IslandPage extends StatelessWidget {
           leading: IconButton(
             icon: Icon(Icons.arrow_back_ios),
             onPressed: () {
-              BlocProvider.of<WeatherBloc>(context).add(PageTapped(index: 2));
+              BlocProvider.of<WeatherBloc>(context).add(PageTapped(index: 0));
               Navigator.pop(context);
             },
           ),
           centerTitle: true,
-          title: Text(
-            this.islandName,
+          title: TextField(
+            //controller: _filter,
+            decoration: new InputDecoration(
+                prefixIcon: new Icon(Icons.search), hintText: 'Search...'),
           ),
         ),
         body: ListView.builder(
-            itemCount: spots.length,
+            itemCount: initialSpots.length,
             itemBuilder: (BuildContext context, int index) {
-              return WeatherPrevWidget(
-                spot: spots[index],
-                isFavourite: BlocProvider.of<WeatherBloc>(context)
-                    .isFavourite(spots[index].name),
+              return Card(
+                child: Text(initialSpots[index]),
               );
             }));
   }

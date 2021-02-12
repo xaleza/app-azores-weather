@@ -78,3 +78,14 @@ class PageLoadingError extends WeatherState {
   @override
   String toString() => 'PageLoadingError';
 }
+
+class SearchPageInitial extends WeatherState {
+  final List<String> initialSpots;
+
+  SearchPageInitial({@required this.initialSpots});
+
+  @override
+  List<Object> get props => [initialSpots];
+  @override
+  String toString() => 'SearchPageInitial';
+}

@@ -1,5 +1,6 @@
 import 'package:azores_weather/features/weather/presentation/bloc/weather_bloc.dart';
 import 'package:azores_weather/features/weather/presentation/pages/island_page.dart';
+import 'package:azores_weather/features/weather/presentation/pages/search_page.dart';
 import 'package:azores_weather/features/weather/presentation/widgets/bottom_nav_bar.dart';
 import 'package:azores_weather/features/weather/presentation/widgets/islands_list_widget.dart';
 import 'package:azores_weather/features/weather/presentation/widgets/weather_prev_widget.dart';
@@ -18,7 +19,12 @@ class WeatherPage extends StatelessWidget {
           actions: [
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),
-              child: Icon(Icons.search),
+              child: IconButton(
+                icon: Icon(Icons.search),
+                onPressed: () {
+                  BlocProvider.of<WeatherBloc>(context).add(SearchTapped());
+                },
+              ),
             ),
           ],
         ),
@@ -28,6 +34,16 @@ class WeatherPage extends StatelessWidget {
 
   BlocBuilder<WeatherBloc, WeatherState> buildBody() {
     return BlocBuilder<WeatherBloc, WeatherState>(builder: (context, state) {
+      if (state is SearchPageInitial) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      SearchPage(initialSpots: state.initialSpots)));
+        });
+        return Center(child: CircularProgressIndicator());
+      }
       if (state is PageLoading) {
         return Center(child: CircularProgressIndicator());
       }
@@ -98,7 +114,7 @@ class WeatherPage extends StatelessWidget {
                         spots: state.spots,
                       )));
         });
-        return IslandsListWidget();
+        return Center(child: CircularProgressIndicator());
       }
       if (state is AllPageSelected) {
         return IslandsListWidget();

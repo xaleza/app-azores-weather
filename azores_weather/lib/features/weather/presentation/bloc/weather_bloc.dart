@@ -32,7 +32,7 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
 
   var favouritesList;
   var nearMeSpotList = List<String>();
-  final List<String> favouritesListTest = ["Furnas"];
+  final List<String> searchInitialList = ["Ponta Delgada", "Furnas"];
   //final nearMeSpotList = ["Ponta Delgada", "Ribeira Grande", "Furnas"];
   //final allSpots = ["Ponta Delgada", "Ribeira Grande", "Furnas"];
 
@@ -97,6 +97,9 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
       if (this.currentIndex == ALL_PAGE) {
         yield AllPageSelected();
       }
+    }
+    if (event is SearchTapped) {
+      yield SearchPageInitial(initialSpots: searchInitialList);
     }
   }
 

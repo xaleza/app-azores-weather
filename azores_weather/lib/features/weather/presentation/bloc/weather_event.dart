@@ -11,6 +11,8 @@ class AppStarted extends WeatherEvent {}
 
 class RefreshPage extends WeatherEvent {}
 
+class SearchTapped extends WeatherEvent {}
+
 class PageTapped extends WeatherEvent {
   final int index;
 
