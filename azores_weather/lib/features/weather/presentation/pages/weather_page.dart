@@ -1,11 +1,11 @@
 import 'package:azores_weather/features/weather/presentation/bloc/weather_bloc.dart';
 import 'package:azores_weather/features/weather/presentation/pages/island_page.dart';
 import 'package:azores_weather/features/weather/presentation/pages/search_page.dart';
+import 'package:azores_weather/features/weather/presentation/pages/spot_page.dart';
 import 'package:azores_weather/features/weather/presentation/widgets/bottom_nav_bar.dart';
 import 'package:azores_weather/features/weather/presentation/widgets/islands_list_widget.dart';
 import 'package:azores_weather/features/weather/presentation/widgets/weather_prev_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class WeatherPage extends StatelessWidget {
@@ -118,6 +118,19 @@ class WeatherPage extends StatelessWidget {
       }
       if (state is AllPageSelected) {
         return IslandsListWidget();
+      }
+      if (state is SpotPageLoaded) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => SpotPage(
+                        spot: state.spot,
+                        startsFavourite: BlocProvider.of<WeatherBloc>(context)
+                            .isFavourite(state.spot.name),
+                      )));
+        });
+        return Center(child: CircularProgressIndicator());
       }
       if (state is PageLoadingError) {
         return Center(

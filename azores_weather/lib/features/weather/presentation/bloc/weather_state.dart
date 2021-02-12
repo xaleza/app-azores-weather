@@ -89,3 +89,14 @@ class SearchPageInitial extends WeatherState {
   @override
   String toString() => 'SearchPageInitial';
 }
+
+class SpotPageLoaded extends WeatherState {
+  final Spot spot;
+
+  SpotPageLoaded({@required this.spot});
+
+  @override
+  List<Object> get props => [spot];
+  @override
+  String toString() => 'SpotPageLoaded';
+}

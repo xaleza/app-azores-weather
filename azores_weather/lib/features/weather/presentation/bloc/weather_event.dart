@@ -44,3 +44,11 @@ class IslandTapped extends WeatherEvent {
   @override
   List<Object> get props => [islandName];
 }
+
+class SearchedSpotTapped extends WeatherEvent {
+  final String spotName;
+  SearchedSpotTapped({this.spotName});
+
+  @override
+  List<Object> get props => [spotName];
+}

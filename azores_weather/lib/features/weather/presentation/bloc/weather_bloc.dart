@@ -101,6 +101,19 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
     if (event is SearchTapped) {
       yield SearchPageInitial(initialSpots: searchInitialList);
     }
+    if (event is SearchedSpotTapped) {
+      yield* _buildSpotPage(event);
+    }
+  }
+
+  Stream<WeatherState> _buildSpotPage(SearchedSpotTapped event) async* {
+    var spotEither = await this
+        .getCurrentWeatherForSpot(ParamsWeather(spotName: event.spotName));
+    yield* spotEither.fold((failure) async* {
+      yield PageLoadingError(message: _mapFailureToMessage(failure));
+    }, (spot) async* {
+      yield SpotPageLoaded(spot: spot);
+    });
   }
 
   void _addFavourite(AddFavourite event) {

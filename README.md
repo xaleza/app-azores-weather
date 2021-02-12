@@ -7,7 +7,7 @@
 - Check the weather for all the locations in the Azores
 - Add/Remove locations to your favourites
 - Check the weather for near locations
-- Search for locations (TODO)
+- Search for locations
 - Settings (TODO)
 
 <p float="left">
@@ -17,4 +17,7 @@
 <p float="left">
   <img src="previews/alert_dialog_preview.png" width="400">
   <img src="previews/all_page_preview.png" width="400">
+</p>
+<p float="left">
+  <img src="previews/search_page_preview.png" width="400">
 </p>
