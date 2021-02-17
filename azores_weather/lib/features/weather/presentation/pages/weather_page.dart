@@ -1,4 +1,5 @@
 import 'package:azores_weather/features/weather/presentation/bloc/weather_bloc.dart';
+import 'package:azores_weather/features/weather/presentation/pages/about_page.dart';
 import 'package:azores_weather/features/weather/presentation/pages/island_page.dart';
 import 'package:azores_weather/features/weather/presentation/pages/search_page.dart';
 import 'package:azores_weather/features/weather/presentation/pages/spot_page.dart';
@@ -13,7 +14,7 @@ class WeatherPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          leading: Icon(Icons.menu),
+          //leading: Icon(Icons.menu),
           centerTitle: true,
           title: Text('Tempo nos Açores'),
           actions: [
@@ -29,6 +30,40 @@ class WeatherPage extends StatelessWidget {
           ],
         ),
         body: buildBody(),
+        drawer: Drawer(
+          // Add a ListView to the drawer. This ensures the user can scroll
+          // through the options in the drawer if there isn't enough vertical
+          // space to fit everything.
+          child: ListView(
+            // Important: Remove any padding from the ListView.
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              DrawerHeader(
+                child: Center(
+                  child: Text(
+                    'Tempo nos Açores',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  ),
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.blue.shade800,
+                ),
+              ),
+              ListTile(
+                leading: Icon(Icons.info),
+                title: Text('Sobre'),
+                onTap: () {
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => AboutPage()));
+                  });
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
+        ),
         bottomNavigationBar: buildBottomNavBar());
   }
 

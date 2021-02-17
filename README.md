@@ -8,7 +8,7 @@
 - Add/Remove locations to your favourites
 - Check the weather for near locations
 - Search for locations
-- Settings (TODO)
+- About app
 
 <p float="left">
   <img src="previews/spot_page_preview.png" width="400">
