@@ -78,10 +78,15 @@ class _SpotPageState extends State<SpotPage> {
           ),
           new Expanded(
             child: GridView.count(
-                padding: EdgeInsets.all(10),
+
                 // Create a grid with 2 columns. If you change the scrollDirection to
                 // horizontal, this would produce 2 rows.
                 crossAxisCount: 2,
+                primary: false,
+                padding: const EdgeInsets.all(1.5),
+                childAspectRatio: 1,
+                mainAxisSpacing: 1.0,
+                crossAxisSpacing: 1.0,
                 // Generate 100 Widgets that display their index in the List
                 children: <Widget>[
                   Container(
@@ -93,12 +98,15 @@ class _SpotPageState extends State<SpotPage> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Transform.scale(
-                              child: weatherIcon(widget.spot.weather),
-                              scale: 1.7),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Transform.scale(
+                                child: weatherIcon(widget.spot.weather),
+                                scale: 1.7),
+                          ),
                           Text(
-                            widget.spot.weather,
-                            style: TextStyle(fontSize: 30.0),
+                            _translateWeatherInfo(widget.spot.weather),
+                            style: TextStyle(fontSize: 25.0),
                           ),
                         ],
                       ),
@@ -224,6 +232,27 @@ class _SpotPageState extends State<SpotPage> {
         _isFavorited = true;
       }
     });
+  }
+
+  String _translateWeatherInfo(String weather) {
+    switch (weather) {
+      case THUNDERSTORM_WEATHER:
+        return "Trovoada";
+      case RAIN_WEATHER:
+        return "Aguaceiros";
+      case CLOUDS_WEATHER:
+        return "Nublado";
+      case DRIZZLE_WEATHER:
+        return "Chuviscos";
+      case MIST_WEATHER:
+        return "Neblina";
+      case FOG_WEATHER:
+        return "Nevoeiro";
+      case CLEAR_WEATHER:
+        return "Céu Limpo";
+      default:
+        return "Erro";
+    }
   }
 
   void _showConfirmationDialog(BuildContext context) {

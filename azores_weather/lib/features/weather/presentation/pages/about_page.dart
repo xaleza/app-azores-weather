@@ -30,6 +30,10 @@ e neste momento estou a meio do meu mestrado
 em Engenharia Informática no Instituto Superior
 Técnico. Sou açoriano e sou fanático pela beleza
 das nossas ilhas.
+
+  Contacto: goncalo.h.almeida@gmail.com
+  Todo o código da app está disponível no meu
+  github: xaleza
 """,
                 style: TextStyle(fontSize: 16),
               )),
